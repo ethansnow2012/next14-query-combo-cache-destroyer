@@ -1,27 +1,27 @@
-"use client"
+"use client";
 
-import { useGetPosts } from "@/data/get-posts"
-import { addLike, deletePost } from "@/server/actions/create-post"
-import { useAction } from "next-safe-action/hooks"
-import { AnimatePresence, motion } from "framer-motion"
-import { cn } from "@/lib/utils"
-import { HeartIcon, Trash } from "lucide-react"
+import { useGetPosts } from "@/data/get-posts";
+import { addLike, deletePost } from "@/server/actions/create-post";
+import { useAction } from "next-safe-action/hooks";
+import { AnimatePresence, motion } from "framer-motion";
+import { cn } from "@/lib/utils";
+import { HeartIcon, Trash } from "lucide-react";
 import {
   CardDescription,
   CardHeader,
   CardHeaderMotion,
   CardMotion,
   CardTitle,
-} from "./ui/card"
-import { useSession } from "next-auth/react"
-import Image from "next/image"
+} from "./ui/card";
+import { useSession } from "next-auth/react";
+import Image from "next/image";
 
 export default function Posts() {
-  const { data: posts, error: postError, fetchStatus } = useGetPosts()
-  const { execute: executeAddLike } = useAction(addLike)
-  const { execute: exectueDeletePost } = useAction(deletePost)
-  const { data: session } = useSession()
-  if (postError) return postError.message
+  const { data: posts, error: postError, fetchStatus } = useGetPosts();
+  const { execute: executeAddLike } = useAction(addLike);
+  const { execute: exectueDeletePost } = useAction(deletePost);
+  const { data: session } = useSession();
+  if (postError) return postError.message;
   if (posts?.success)
     return (
       <CardMotion layout className="flex flex-col mt-6 p-4 font-medium">
@@ -51,12 +51,15 @@ export default function Posts() {
               key={post.id}
             >
               <div className="flex gap-2 items-center ">
-                <Image
-                  src={post.author.image!}
-                  width={24}
-                  height={24}
-                  alt={post.author.name!}
-                />
+                {/* {post.author.image && (
+                  <Image
+                    src={post.author.image!}
+                    width={24}
+                    height={24}
+                    alt={post.author.name!}
+                  />
+                )} */}
+
                 <h2 className="text-sm font-bold">{post.author.name}</h2>
               </div>
               <p className="text-primary">{post.content}</p>
@@ -69,7 +72,7 @@ export default function Posts() {
                   onClick={() =>
                     executeAddLike({
                       post_id: post.id,
-                      user_id: session?.user.id as string,
+                      user_id: session?.user?.id as string,
                     })
                   }
                   className="flex items-center gap-1 cursor-pointer"
@@ -82,5 +85,5 @@ export default function Posts() {
           ))}
         </AnimatePresence>
       </CardMotion>
-    )
+    );
 }

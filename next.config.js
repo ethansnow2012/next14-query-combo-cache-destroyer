@@ -5,14 +5,12 @@ const nextConfig = {
       fullUrl: true,
     },
   },
-  images: {
-    remotePatterns: [
-      { hostname: "avatars.githubusercontent.com", protocol: "https" },
-    ],
-  },
+  // images: {
+  //   remotePatterns: [{ hostname: "", protocol: "https" }],
+  // },
   typescript: {
     ignoreBuildErrors: true,
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
